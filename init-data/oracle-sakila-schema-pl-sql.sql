@@ -3,17 +3,17 @@ BEGIN
     EXECUTE IMMEDIATE 'DROP TYPE ' || r.type_name || ' FORCE';
   END LOOP;
 END;
-/
+
 
 CREATE TYPE LANGUAGE_T AS OBJECT (
   language_id SMALLINT,
   name CHAR(20),
   last_update DATE
 );
-/
+
 
 CREATE TYPE LANGUAGES_T AS TABLE OF LANGUAGE_T;
-/
+
 
 CREATE TYPE FILM_T AS OBJECT (
   film_id int,
@@ -30,10 +30,10 @@ CREATE TYPE FILM_T AS OBJECT (
   special_features VARCHAR(100),
   last_update DATE
 );
-/
+
 
 CREATE TYPE FILMS_T AS TABLE OF FILM_T;
-/
+
 
 CREATE TYPE ACTOR_T AS OBJECT (
   actor_id numeric,
@@ -41,34 +41,34 @@ CREATE TYPE ACTOR_T AS OBJECT (
   last_name VARCHAR(45),
   last_update DATE
 );
-/
+
 
 CREATE TYPE ACTORS_T AS TABLE OF ACTOR_T;
-/
+
 
 CREATE TYPE CATEGORY_T AS OBJECT (
   category_id SMALLINT,
   name VARCHAR(25),
   last_update DATE
 );
-/
+
 
 CREATE TYPE CATEGORIES_T AS TABLE OF CATEGORY_T;
-/
+
 
 CREATE TYPE FILM_INFO_T AS OBJECT (
   film FILM_T,
   actors ACTORS_T,
   categories CATEGORIES_T
 );
-/
+
 
 CREATE TYPE COUNTRY_T AS OBJECT (
   country_id SMALLINT,
   country VARCHAR(50),
   last_update DATE
 );
-/
+
 
 CREATE TYPE CITY_T AS OBJECT (
   city_id int,
@@ -76,7 +76,7 @@ CREATE TYPE CITY_T AS OBJECT (
   country COUNTRY_T,
   last_update DATE
 );
-/
+
 
 CREATE TYPE ADDRESS_T AS OBJECT (
   address_id int,
@@ -88,7 +88,7 @@ CREATE TYPE ADDRESS_T AS OBJECT (
   phone VARCHAR(20),
   last_update DATE
 );
-/
+
 
 CREATE TYPE CUSTOMER_T AS OBJECT (
   customer_id INT,
@@ -100,16 +100,16 @@ CREATE TYPE CUSTOMER_T AS OBJECT (
   create_date DATE,
   last_update DATE
 );
-/
+
 
 CREATE TYPE CUSTOMERS_T AS TABLE OF CUSTOMER_T;
-/
+
 
 CREATE TYPE CUSTOMER_RENTAL_HISTORY_T AS OBJECT (
   customer CUSTOMER_T,
   films FILMS_T
 );
-/
+
 
 CREATE OR REPLACE PACKAGE RENTALS AS
   FUNCTION GET_ACTOR(p_actor_id INT) RETURN ACTOR_T;
@@ -123,7 +123,7 @@ CREATE OR REPLACE PACKAGE RENTALS AS
   FUNCTION GET_FILM_INFO(p_film_id INT) RETURN FILM_INFO_T;
   FUNCTION GET_FILM_INFO(p_film FILM_T) RETURN FILM_INFO_T;
 END RENTALS;
-/
+
 
 CREATE OR REPLACE PACKAGE BODY RENTALS AS
   FUNCTION GET_ACTOR(p_actor_id INT) RETURN ACTOR_T IS
@@ -384,7 +384,7 @@ CREATE OR REPLACE PACKAGE BODY RENTALS AS
   END GET_FILM_INFO;
   
 END RENTALS;
-/
+
 
 CREATE PACKAGE customers AS
   TYPE person IS RECORD (
@@ -394,7 +394,7 @@ CREATE PACKAGE customers AS
   
   FUNCTION get_customer(p_customer_id NUMBER) RETURN person;
 END customers;
-/
+
 
 CREATE PACKAGE BODY customers AS
   FUNCTION get_customer(p_customer_id NUMBER) RETURN person IS
@@ -408,4 +408,4 @@ CREATE PACKAGE BODY customers AS
     RETURN v_person;
   END get_customer;
 END customers;
-/
+
